@@ -1,7 +1,6 @@
 <h1>ECG Signal Classification using the MIT BIH Datasets</h1>
-<p style="color:red; font-weight:bold; font-size:18px;">
-  Results Below
-</p>
+<font color="red"><strong>Results Below</strong></font>
+
 
 
 <h2>1. Dataset Description</h2>
