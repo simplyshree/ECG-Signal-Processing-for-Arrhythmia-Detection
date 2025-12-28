@@ -93,7 +93,7 @@ on either side of the R-peak further enhanced accuracy, suggesting that addition
 morphological information contributes positively to arrhythmia discrimination.
 </p>
 
-<h1> Methedology </h1>
+<h1> Methodology </h1>
 
 <h2>1. Dataset Description</h2>
 <p>
