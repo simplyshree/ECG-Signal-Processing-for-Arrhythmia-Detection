@@ -1,7 +1,99 @@
 <h1>ECG Signal Classification using the MIT BIH Datasets</h1>
-<font color="red"><strong>Results Below</strong></font>
 
+<h2>Results and Performance Analysis</h2>
 
+<p>
+This section summarizes the classification performance of different machine learning
+models evaluated on the MIT-BIH Arrhythmia dataset. All experiments were conducted
+using a beat-based ECG segmentation approach and a 70:30 train–test split unless
+otherwise specified.
+</p>
+
+<h3>Experiment 1: Baseline Model Comparison</h3>
+
+<p>
+In the first set of experiments, multiple machine learning models were evaluated
+using the complete feature set. The objective was to compare classical classifiers
+and assess the effectiveness of ensemble learning.
+</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>Evaluation Method</th>
+      <th>Accuracy (%)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Logistic Regression</td>
+      <td>Train–Test Split</td>
+      <td>91.3393</td>
+    </tr>
+    <tr>
+      <td>Logistic Regression</td>
+      <td>10-Fold Cross Validation</td>
+      <td>91.3744</td>
+    </tr>
+    <tr>
+      <td>Random Forest Classifier</td>
+      <td>Train–Test Split</td>
+      <td>97.4785</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Experiment 2: MLII Lead with Fixed Beat Window</h3>
+
+<p>
+In the second set of experiments, only the MLII ECG lead was used. Beat-level features
+were extracted using fixed-length windows centered around the R-peak. The impact of
+window size on classification performance was analyzed.
+</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>Lead Used</th>
+      <th>Window Size</th>
+      <th>Accuracy (%)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Random Forest Classifier</td>
+      <td>MLII</td>
+      <td>360 (180 + 180)</td>
+      <td>99.2736</td>
+    </tr>
+    <tr>
+      <td>Random Forest Classifier</td>
+      <td>MLII</td>
+      <td>400 (200 + 200)</td>
+      <td>99.6368</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Performance Discussion</h3>
+
+<p>
+The baseline comparison demonstrated that ensemble-based methods significantly
+outperformed linear classifiers. While Logistic Regression achieved an accuracy of
+approximately 91%, the Random Forest classifier improved performance to over 97%,
+highlighting its ability to capture complex nonlinear patterns in ECG signals.
+</p>
+
+<p>
+Using only the MLII lead with beat-level segmentation resulted in a substantial
+performance improvement. Increasing the beat window size from 180 to 200 samples
+on either side of the R-peak further enhanced accuracy, suggesting that additional
+morphological information contributes positively to arrhythmia discrimination.
+</p>
+
+<h1> Methedology </h1>
 
 <h2>1. Dataset Description</h2>
 <p>
@@ -115,98 +207,6 @@ the training dataset. Each beat was treated as an independent sample, allowing t
 classifier to learn the relationship between ECG morphology and heartbeat class.
 </p>
 
-<h2>Results and Performance Analysis</h2>
-
-<p>
-This section summarizes the classification performance of different machine learning
-models evaluated on the MIT-BIH Arrhythmia dataset. All experiments were conducted
-using a beat-based ECG segmentation approach and a 70:30 train–test split unless
-otherwise specified.
-</p>
-
-<h3>Experiment 1: Baseline Model Comparison</h3>
-
-<p>
-In the first set of experiments, multiple machine learning models were evaluated
-using the complete feature set. The objective was to compare classical classifiers
-and assess the effectiveness of ensemble learning.
-</p>
-
-<table border="1" cellpadding="8" cellspacing="0">
-  <thead>
-    <tr>
-      <th>Model</th>
-      <th>Evaluation Method</th>
-      <th>Accuracy (%)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Logistic Regression</td>
-      <td>Train–Test Split</td>
-      <td>91.3393</td>
-    </tr>
-    <tr>
-      <td>Logistic Regression</td>
-      <td>10-Fold Cross Validation</td>
-      <td>91.3744</td>
-    </tr>
-    <tr>
-      <td>Random Forest Classifier</td>
-      <td>Train–Test Split</td>
-      <td>97.4785</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3>Experiment 2: MLII Lead with Fixed Beat Window</h3>
-
-<p>
-In the second set of experiments, only the MLII ECG lead was used. Beat-level features
-were extracted using fixed-length windows centered around the R-peak. The impact of
-window size on classification performance was analyzed.
-</p>
-
-<table border="1" cellpadding="8" cellspacing="0">
-  <thead>
-    <tr>
-      <th>Model</th>
-      <th>Lead Used</th>
-      <th>Window Size</th>
-      <th>Accuracy (%)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Random Forest Classifier</td>
-      <td>MLII</td>
-      <td>360 (180 + 180)</td>
-      <td>99.2736</td>
-    </tr>
-    <tr>
-      <td>Random Forest Classifier</td>
-      <td>MLII</td>
-      <td>400 (200 + 200)</td>
-      <td>99.6368</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3>Performance Discussion</h3>
-
-<p>
-The baseline comparison demonstrated that ensemble-based methods significantly
-outperformed linear classifiers. While Logistic Regression achieved an accuracy of
-approximately 91%, the Random Forest classifier improved performance to over 97%,
-highlighting its ability to capture complex nonlinear patterns in ECG signals.
-</p>
-
-<p>
-Using only the MLII lead with beat-level segmentation resulted in a substantial
-performance improvement. Increasing the beat window size from 180 to 200 samples
-on either side of the R-peak further enhanced accuracy, suggesting that additional
-morphological information contributes positively to arrhythmia discrimination.
-</p>
 
 <h2>Conclusion</h2>
 
