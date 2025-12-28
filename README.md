@@ -1,5 +1,5 @@
 # Arrhythmia Detection
-<h1>MIT-BIH Arrhythmia Classification using Random Forest</h1>
+<h1>ECG Signal Classification using the MIT BIH Datasets</h1>
 
 
 <h2>1. Dataset Description</h2>
@@ -10,6 +10,15 @@ signals sampled at 360 Hz along with annotation files that specify the occurrenc
 type of each heartbeat. In this project, only the MLII lead is used for analysis, as it
 provides clear QRS complexes and is commonly adopted in clinical studies.
 </p>
+
+<p>
+Link to Datasets 
+<ul>
+<li> 1. For main python file : https://www.kaggle.com/datasets/shayanfazeli/heartbeat</li>
+<li> 1. For MLII Lead only (Window based Feature Extraction) : https://www.kaggle.com/datasets/taejoongyoon/mitbit-arrhythmia-database/data </li>
+
+</ul>
+</p> 
 
 <h2>2. Data Organization</h2>
 <p>
@@ -83,8 +92,6 @@ each corresponding label indicates the heartbeat class.
 <h2>7. Train–Test Split</h2>
 <p>
 The complete dataset was divided into training and testing sets using a 70:30 split.
-Stratified sampling was applied to preserve the original class distribution in both
-sets, ensuring unbiased model evaluation.
 </p>
 
 <h2>8. Classification Model</h2>
@@ -107,39 +114,120 @@ the training dataset. Each beat was treated as an independent sample, allowing t
 classifier to learn the relationship between ECG morphology and heartbeat class.
 </p>
 
-<h2>10. Model Evaluation</h2>
-<p>
-The trained model was evaluated on the test dataset using multiple performance
-metrics:
-</p>
-
-<ul>
-  <li>Overall classification accuracy</li>
-  <li>Confusion matrix</li>
-</ul>
+<h2>Results and Performance Analysis</h2>
 
 <p>
-These metrics provide a comprehensive assessment of the model’s ability to correctly
-classify different types of arrhythmias.
+This section summarizes the classification performance of different machine learning
+models evaluated on the MIT-BIH Arrhythmia dataset. All experiments were conducted
+using a beat-based ECG segmentation approach and a 70:30 train–test split unless
+otherwise specified.
 </p>
 
-<h2>11. Experimental Setup</h2>
+<h3>Experiment 1: Baseline Model Comparison</h3>
+
 <p>
-To analyze the effect of beat window size on classification performance, experiments
-were conducted using different window lengths. A window size of 200 samples on
-either side of the R-peak was selected to capture sufficient heartbeat morphology
-while minimizing noise.
+In the first set of experiments, multiple machine learning models were evaluated
+using the complete feature set. The objective was to compare classical classifiers
+and assess the effectiveness of ensemble learning.
 </p>
 
-<h2>12. Workflow Summary</h2>
-<ol>
-  <li>Load ECG signals and annotation files</li>
-  <li>Select the MLII ECG lead</li>
-  <li>Extract fixed-length heartbeat segments around R-peaks</li>
-  <li>Map beat symbols to standard arrhythmia classes</li>
-  <li>Combine heartbeat segments from all records</li>
-  <li>Split the dataset into training and testing sets</li>
-  <li>Train the Random Forest classifier</li>
-  <li>Evaluate model performance</li>
-</ol>
+<table border="1" cellpadding="8" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>Evaluation Method</th>
+      <th>Accuracy (%)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Logistic Regression</td>
+      <td>Train–Test Split</td>
+      <td>91.3393</td>
+    </tr>
+    <tr>
+      <td>Logistic Regression</td>
+      <td>10-Fold Cross Validation</td>
+      <td>91.3744</td>
+    </tr>
+    <tr>
+      <td>Random Forest Classifier</td>
+      <td>Train–Test Split</td>
+      <td>97.4785</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Experiment 2: MLII Lead with Fixed Beat Window</h3>
+
+<p>
+In the second set of experiments, only the MLII ECG lead was used. Beat-level features
+were extracted using fixed-length windows centered around the R-peak. The impact of
+window size on classification performance was analyzed.
+</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>Lead Used</th>
+      <th>Window Size</th>
+      <th>Accuracy (%)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Random Forest Classifier</td>
+      <td>MLII</td>
+      <td>360 (180 + 180)</td>
+      <td>99.2736</td>
+    </tr>
+    <tr>
+      <td>Random Forest Classifier</td>
+      <td>MLII</td>
+      <td>400 (200 + 200)</td>
+      <td>99.6368</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Performance Discussion</h3>
+
+<p>
+The baseline comparison demonstrated that ensemble-based methods significantly
+outperformed linear classifiers. While Logistic Regression achieved an accuracy of
+approximately 91%, the Random Forest classifier improved performance to over 97%,
+highlighting its ability to capture complex nonlinear patterns in ECG signals.
+</p>
+
+<p>
+Using only the MLII lead with beat-level segmentation resulted in a substantial
+performance improvement. Increasing the beat window size from 180 to 200 samples
+on either side of the R-peak further enhanced accuracy, suggesting that additional
+morphological information contributes positively to arrhythmia discrimination.
+</p>
+
+<h2>Conclusion</h2>
+
+<p>
+This project presents an effective approach for automated arrhythmia classification
+using the MIT-BIH Arrhythmia Database. A beat-based segmentation strategy was employed
+to extract fixed-length ECG segments centered on R-peaks, ensuring meaningful feature
+representation of individual heartbeats.
+</p>
+
+<p>
+Among the evaluated models, the Random Forest classifier consistently achieved the
+highest performance. The best accuracy of <strong>99.6368%</strong> was obtained using
+only the MLII lead with a window size of 200 samples on either side of the R-peak. This
+demonstrates that high classification accuracy can be achieved using a single ECG
+lead when appropriate feature extraction and ensemble learning techniques are applied.
+</p>
+
+<p>
+The results indicate that beat window size plays a critical role in capturing ECG
+morphology, and that Random Forest classifiers are well-suited for arrhythmia
+detection tasks. Future work may explore deep learning models, feature optimization,
+and real-time implementation for clinical decision support systems.
+</p>
 
