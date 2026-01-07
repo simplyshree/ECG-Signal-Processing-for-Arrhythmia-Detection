@@ -41,6 +41,11 @@ and assess the effectiveness of ensemble learning.
       <td>Train–Test Split</td>
       <td>97.4785</td>
     </tr>
+    <tr>
+      <td>CNN</td>
+      <td>80:20 Split</td>
+      <td>82.7608</td>
+    </tr>
   </tbody>
 </table>
 
